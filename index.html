@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRYPTOOL | Powered by Kapital Media Group</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-blue: #f0f7ff;
+            --bg-green: #f2faf3;
+            --bg-gold: #fffdf2;
+            --brand-red: #d32f2f;
+            --text-dark: #1a202c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--bg-blue), var(--bg-green), var(--bg-gold));
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- ЖИВ КРИПТО РЕИН (SVG Икони за максимална стабилност) --- */
+        .crypto-rain {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .coin {
+            position: absolute;
+            opacity: 0;
+            animation: floatRain 12s infinite linear;
+            width: 45px;
+            height: 45px;
+        }
+
+        @keyframes floatRain {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.25; }
+            90% { opacity: 0.25; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- ГЛАВНА КАРТИЧКА --- */
+        .card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 4rem 2rem;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            width: 90%;
+            max-width: 550px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            color: var(--brand-red);
+            margin-bottom: 5px;
+        }
+
+        .logo-name { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; }
+
+        /* ЛИНК ДО КАПИТАЛ */
+        .powered-by {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2.5rem;
+        }
+
+        .powered-by a {
+            color: var(--brand-red);
+            text-decoration: none;
+            font-weight: 800;
+            padding: 2px 5px;
+            transition: 0.3s;
+        }
+
+        .powered-by a:hover { background: var(--brand-red); color: white; border-radius: 5px; }
+
+        .lang-switch {
+            position: absolute;
+            top: 25px; right: 30px;
+            display: flex; gap: 8px;
+        }
+
+        .l-btn {
+            background: white; border: 1px solid rgba(0,0,0,0.05); padding: 6px 12px;
+            border-radius: 10px; cursor: pointer; font-size: 11px; font-weight: 800;
+            color: #718096; transition: 0.3s;
+        }
+
+        .l-btn.active { background: var(--brand-red); color: white; }
+
+        p { font-size: 1.15rem; color: #4a5568; margin-bottom: 2.5rem; line-height: 1.6; }
+
+        .auth-field {
+            background: white; padding: 6px; border-radius: 20px;
+            display: flex; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            max-width: 380px; margin: 0 auto;
+        }
+
+        input { flex: 1; border: none; padding: 12px; outline: none; font-size: 1rem; background: transparent; }
+
+        .enter-btn {
+            background: var(--brand-red); color: white; border: none;
+            padding: 12px 25px; border-radius: 15px; cursor: pointer;
+            font-weight: 700; transition: 0.3s;
+        }
+
+        .enter-btn:hover { transform: scale(1.05); }
+        .error { color: var(--brand-red); font-size: 13px; margin-top: 10px; display: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="crypto-rain" id="rainContainer"></div>
+
+<div class="lang-switch">
+    <button class="l-btn active" onclick="setL('en')">EN</button>
+    <button class="l-btn" onclick="setL('mk')">MK</button>
+    <button class="l-btn" onclick="setL('sr')">SR</button>
+</div>
+
+<div class="card" id="mainContent">
+    <div class="logo-wrap">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6.3 6.3 9 1.7 4.7C.6 7.1 1 10.1 3 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.4-.4.4-1.1 0-1.4z"/></svg>
+        <span class="logo-name">CRYPTOOL</span>
+    </div>
+    <div class="powered-by">
+        Powered by <a href="https://kapital.mk" target="_blank">www.kapital.mk</a>
+    </div>
+
+    <p id="desc">The region's leading authority for crypto intelligence and institutional-grade investments.</p>
+
+    <div class="auth-field">
+        <input type="password" id="passInput" placeholder="Access code">
+        <button class="enter-btn" onclick="check()" id="btnText">Preview</button>
+    </div>
+    <div id="errMsg" class="error">Access denied. Invalid code.</div>
+</div>
+
+<script>
+    // SVG логоа на TRX, BTC, ETH, BNB, ADA, SOL, SUI
+    const cryptoPaths = [
+        '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" fill="none" stroke-width="2"/>', // Generic Node
+        '<circle cx="12" cy="12" r="9" stroke="currentColor" fill="none" stroke-width="2"/><path d="M9 8h4a2 2 0 0 1 0 4H9m0 0h4a2 2 0 0 1 0 4H9m3-10V6m0 12v-2" stroke="currentColor" fill="none" stroke-width="2"/>', // BTC Style
+        '<path d="M12 2L4.5 14.5 12 19l7.5-4.5L12 2z" stroke="currentColor" fill="none" stroke-width="1.5"/>', // ETH Style
+        '<path d="M12 22l-4-4 4-4 4 4-4 4zM12 10l-4-4 4-4 4 4-4 4z" fill="currentColor"/>' // SOL/SUI Style
+    ];
+
+    const rain = document.getElementById('rainContainer');
+    
+    function createCoin() {
+        const coin = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        coin.setAttribute("viewBox", "0 0 24 24");
+        coin.setAttribute("class", "coin");
+        coin.innerHTML = cryptoIcons[Math.floor(Math.random() * cryptoIcons.length)];
+        
+        // Позиционирање
+        coin.style.left = Math.random() * 90 + "vw";
+        coin.style.animationDuration = (Math.random() * 5 + 10) + "s";
+        
+        // Боја (Биткоин златна, Етериум сина, Солана виолетова)
+        const colors = ['#f7931a', '#627eea', '#9945ff', '#26a17b', '#d32f2f'];
+        coin.style.color = colors[Math.floor(Math.random() * colors.length)];
+        
+        rain.appendChild(coin);
+        setTimeout(() => { coin.remove(); }, 12000);
+    }
+
+    const cryptoIcons = cryptoPaths;
+    setInterval(createCoin, 600); // Почесто за повеќе динамика
+
+    const dict = {
+        en: { desc: "The region's leading authority for crypto intelligence and institutional-grade investments.", place: "Access code", btn: "Preview", err: "Access denied." },
+        mk: { desc: "Водечки регионален авторитет за крипто интелигенција и институционални инвестиции.", place: "Код за пристап", btn: "Преглед", err: "Невалиден код." },
+        sr: { desc: "Vodeći regionalni autoritet za kripto inteligenciju i institucionalne investicije.", place: "Kod za pristup", btn: "Pregled", err: "Neispravan kod." }
+    };
+
+    function setL(l) {
+        document.getElementById('desc').innerText = dict[l].desc;
+        document.getElementById('passInput').placeholder = dict[l].place;
+        document.getElementById('btnText').innerText = dict[l].btn;
+        document.getElementById('errMsg').innerText = dict[l].err;
+        document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
+        const btns = document.querySelectorAll('.l-btn');
+        if(l === 'en') btns[0].classList.add('active');
+        if(l === 'mk') btns[1].classList.add('active');
+        if(l === 'sr') btns[2].classList.add('active');
+    }
+
+    function check() {
+        const p = document.getElementById('passInput').value;
+        if (p === "cryptool2026") {
+            document.getElementById('mainContent').innerHTML = `<h2 style="color:var(--brand-red);">AUTHORIZED</h2><p>Welcome to the administrative preview.</p><button class="enter-btn" onclick="location.reload()" style="background:#4a5568;">Logout</button>`;
+        } else {
+            document.getElementById('errMsg').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
