@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRYPTOOL | Media Hub</title>
+    <title>CRYPTOOL | Coming Soon</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,215 +11,136 @@
             --brand-red: #d32f2f;
             --bg-light: #f8fafc;
             --text-dark: #1a202c;
-            --accent-blue: #2563eb;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-light); color: var(--text-dark); }
+        body, html { height: 100%; margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden; }
 
-        /* --- AUTH SECTION --- */
+        /* --- СТРИКТЕН COMING SOON ЕКРАН - МОРА ДА СЕ ПОЈАВИ ПРВ --- */
         #auth-screen {
-            height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center;
-            background: linear-gradient(135deg, #f0f7ff, #f2faf3, #fffdf2); position: fixed; z-index: 2000;
-        }
-        .auth-card {
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); padding: 3rem;
-            border-radius: 40px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f7ff, #f2faf3, #fffdf2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999; /* Највисок приоритет */
         }
 
-        /* --- LAYOUT --- */
-        #main-app { display: none; }
-        nav {
-            position: fixed; top: 0; width: 100%; background: white; padding: 12px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #edf2f7; z-index: 1000;
-        }
-        .logo { font-weight: 800; font-size: 1.6rem; color: var(--brand-red); display: flex; align-items: center; gap: 10px; }
+        .crypto-rain { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .coin-float { position: absolute; opacity: 0.2; animation: floatUp 10s infinite linear; font-size: 2.5rem; color: #1a202c; }
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 120px 20px 60px; }
-
-        /* --- TICKER --- */
-        .ticker-bar {
-            position: fixed; top: 60px; width: 100%; background: #111; color: white;
-            padding: 8px 0; font-size: 0.85rem; font-weight: 600; z-index: 999;
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.2; }
+            90% { opacity: 0.2; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
-        .ticker-content { display: flex; gap: 50px; animation: scroll 40s linear infinite; width: max-content; }
-        @keyframes scroll { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
 
-        /* --- BANNERS --- */
-        .banner-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
-        .ad-banner {
-            background: white; border-radius: 12px; height: 100px; display: flex;
-            align-items: center; justify-content: center; border: 1px solid #e2e8f0;
-            text-decoration: none; font-weight: 700; color: #64748b; transition: 0.3s;
-            text-transform: uppercase; font-size: 0.8rem;
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 4rem;
+            border-radius: 40px;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.15);
+            border: 1px solid white;
+            z-index: 100000;
+            max-width: 500px;
+            width: 90%;
         }
-        .ad-banner:hover { border-color: var(--brand-red); transform: translateY(-3px); }
-        .ad-banner i { margin-right: 8px; font-size: 1.2rem; }
 
-        /* --- NEWS SECTIONS --- */
-        .breaking-news {
-            background: #fff5f5; border-radius: 20px; padding: 30px; 
-            border-left: 8px solid var(--brand-red); margin-bottom: 40px; position: relative;
-        }
-        .badge-live { background: var(--brand-red); color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 900; position: absolute; top: -10px; left: 20px; }
+        /* --- ГЛАВНА СОДРЖИНА - СКРИЕНА --- */
+        #main-app { display: none; visibility: hidden; }
 
-        .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-        .section-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
+        .logo-title { color: var(--brand-red); font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+        .partner-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; color: #64748b; margin-bottom: 35px; }
 
-        .news-card { background: white; padding: 20px; border-radius: 16px; box-shadow: var(--card-shadow); margin-bottom: 15px; transition: 0.3s; }
-        .news-card:hover { transform: scale(1.01); }
+        input { padding: 14px; border-radius: 15px; border: 1px solid #ddd; outline: none; margin-bottom: 15px; width: 100%; text-align: center; font-size: 1rem; }
+        .btn-red { background: var(--brand-red); color: white; border: none; padding: 14px; border-radius: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn-red:hover { transform: scale(1.02); background: #b71c1c; }
 
-        /* --- ACADEMY (DOWNPLAYED) --- */
-        .academy-section { background: #f1f5f9; padding: 60px 0; margin-top: 40px; border-radius: 30px; }
-        .academy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 0 20px; }
-        .academy-item { background: white; padding: 20px; border-radius: 15px; border-bottom: 3px solid #cbd5e1; }
-
-        /* --- FOOTER --- */
-        footer { background: white; border-top: 1px solid #edf2f7; padding: 60px 20px; text-align: center; margin-top: 60px; }
-        .footer-logo { font-weight: 800; font-size: 1.8rem; color: var(--brand-red); margin-bottom: 10px; }
-        .footer-powered { font-size: 0.9rem; font-weight: 600; color: #64748b; letter-spacing: 1px; }
-
-        /* UI Elements */
-        .btn-main { background: var(--brand-red); color: white; border: none; padding: 12px 30px; border-radius: 12px; font-weight: 700; cursor: pointer; }
-        input { padding: 12px; border-radius: 10px; border: 1px solid #ddd; margin-right: 10px; }
+        /* Dashboard Styles за подоцна */
+        .container { max-width: 1200px; margin: 0 auto; padding: 120px 20px; }
+        nav { position: fixed; top: 0; width: 100%; background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: border-bottom: 1px solid #eee; z-index: 1000; }
     </style>
 </head>
 <body>
 
-<!-- AUTH SCREEN -->
+<!-- COMING SOON ЕКРАН -->
 <section id="auth-screen">
+    <div class="crypto-rain" id="rain"></div>
     <div class="auth-card">
-        <div class="logo" style="justify-content: center; font-size: 3rem; margin-bottom: 10px;">
-            <i class="fa-solid fa-screwdriver-wrench"></i> CRYPTOOL
-        </div>
-        <div style="font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; color: #94a3b8; margin-bottom: 30px;">POWERED BY KAPITAL MEDIA GROUP</div>
-        <input type="password" id="passCode" placeholder="Внесете лозинка">
-        <button class="btn-main" onclick="validate()">ВЛЕЗИ</button>
-        <p id="err" style="color:red; margin-top:10px; display:none; font-size:0.8rem;">Неточна лозинка.</p>
+        <div class="logo-title"><i class="fa-solid fa-screwdriver-wrench"></i> CRYPTOOL</div>
+        <div class="partner-label">POWERED BY KAPITAL MEDIA GROUP</div>
+        
+        <p style="margin-bottom: 20px; color: #4a5568; font-weight: 600;">Внесете лозинка за преглед:</p>
+        <input type="password" id="passCode" placeholder="Лозинка">
+        <button class="btn-red" onclick="unlock()">ВЛЕЗИ</button>
+        <p id="errorMsg" style="color: red; margin-top: 15px; font-weight: 700; display: none;">Неточна лозинка!</p>
     </div>
 </section>
 
-<!-- MAIN APP -->
+<!-- ГЛАВНА СТРАНА -->
 <div id="main-app">
     <nav>
-        <div class="logo"><i class="fa-solid fa-screwdriver-wrench"></i> CRYPTOOL</div>
-        <div style="font-weight: 700; font-size: 0.8rem; color: #64748b;">
-            PARTNER: <a href="https://kapital.mk" style="color: var(--brand-red); text-decoration: none;">KAPITAL.MK</a>
-        </div>
+        <div style="font-weight: 800; font-size: 1.5rem; color: var(--brand-red);">CRYPTOOL</div>
+        <div style="font-weight: 700; font-size: 0.8rem;">PARTNER: <a href="https://kapital.mk" target="_blank" style="color: var(--brand-red); text-decoration: none;">KAPITAL.MK</a></div>
     </nav>
 
-    <div class="ticker-bar">
-        <div class="ticker-content">
-            <span>BTC: <b style="color:#4ade80">$63,120 (+1.4%)</b></span>
-            <span>ETH: <b style="color:#4ade80">$3,410 (+0.9%)</b></span>
-            <span>SOL: <b style="color:#f87171">$145 (-2.3%)</b></span>
-            <span>TRX: <b style="color:#4ade80">$0.11 (+4.1%)</b></span>
-            <span>ADA: <b style="color:#f87171">$0.44 (-1.1%)</b></span>
-            <span>SUI: <b style="color:#4ade80">$1.18 (+6.2%)</b></span>
-        </div>
-    </div>
-
     <div class="container">
-        <!-- БАНЕРИ ЗА ПАРТНЕРИ -->
-        <div class="banner-row">
-            <a href="#" class="ad-banner"><i class="fa-solid fa-building-columns"></i> Binance Partner</a>
-            <a href="#" class="ad-banner"><i class="fa-solid fa-shield-halved"></i> OKX Secure</a>
-            <a href="#" class="ad-banner"><i class="fa-solid fa-chart-line"></i> Ondo Investments</a>
+        <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-left: 8px solid var(--brand-red);">
+            <small style="background: var(--brand-red); color: white; padding: 4px 8px; border-radius: 4px; font-weight: 800; font-size: 0.7rem;">BREAKING</small>
+            <h1 style="margin: 20px 0;">Ondo Finance: Институционална револуција</h1>
+            <p>Успешно се најавивте. Овде ќе се појави целосната содржина на порталот.</p>
         </div>
 
-        <!-- BREAKING NEWS -->
-        <div class="breaking-news">
-            <span class="badge-live">BREAKING NEWS</span>
-            <h1 style="font-size: 2rem; margin-bottom: 10px;">Institutional Inflow: Ondo Finance го редефинира RWA пазарот</h1>
-            <p style="opacity: 0.8;">Големите инвестициски банки почнаа со интеграција на Ondo протоколите за токенизација на државни обврзници.</p>
-        </div>
-
-        <div class="news-grid">
-            <!-- ТЕКОВНИ ВЕСТИ -->
-            <main>
-                <h2 class="section-title">Тековни Вести</h2>
-                <div class="news-card">
-                    <small style="color:var(--brand-red); font-weight:800;">MARKET UPDATE • Пред 15 мин</small>
-                    <h3 style="margin:8px 0;">Биткоин го тестира отпорот на 64.000 долари – што велат аналитичарите?</h3>
-                </div>
-                <div class="news-card">
-                    <small style="color:var(--brand-red); font-weight:800;">ECONOMY • Пред 1 час</small>
-                    <h3 style="margin:8px 0;">Како новите одлуки на ЕЦБ ќе влијаат врз македонскиот крипто пазар?</h3>
-                </div>
-                <div class="news-card">
-                    <small style="color:var(--brand-red); font-weight:800;">PROJECTS • Пред 3 часа</small>
-                    <h3 style="margin:8px 0;">SUI Network забележа раст од 300% во децентрализираните финансии (DeFi).</h3>
-                </div>
-            </main>
-
-            <!-- БЛОГОВИ & ИНТЕРВЈУА -->
-            <aside>
-                <h2 class="section-title">Анализи & Блогови</h2>
-                <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #edf2f7;">
-                    <h4 style="margin-bottom: 10px;">Зошто 2026 е година на DePIN?</h4>
-                    <p style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 15px;">Детална анализа на инфраструктурните мрежи и нивната реална примена.</p>
-                    <a href="#" style="color:var(--brand-red); font-weight:700; font-size:0.8rem; text-decoration:none;">ПРОЧИТАЈ →</a>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #edf2f7; margin-top: 20px;">
-                    <h4 style="margin-bottom: 10px;">Интервју: Иднината на токенизацијата</h4>
-                    <p style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 15px;">Разговор со лидерите на Ondo за иднината на дигиталните средства.</p>
-                    <a href="#" style="color:var(--brand-red); font-weight:700; font-size:0.8rem; text-decoration:none;">ПРОЧИТАЈ →</a>
-                </div>
-            </aside>
-        </div>
-
-        <!-- ACADEMY (СУПТИЛНО ДОЛУ) -->
-        <div class="academy-section">
-            <div class="container" style="padding: 0;">
-                <h2 class="section-title" style="padding: 0 20px;">CRYPTOOL ACADEMY</h2>
-                <div class="academy-grid">
-                    <div class="academy-item">
-                        <i class="fa-solid fa-graduation-cap" style="color:var(--brand-red); margin-bottom:10px;"></i>
-                        <h4>Основи на Блокчејн</h4>
-                        <p style="font-size:0.8rem; opacity:0.6;">Научете ги темелите на технологијата.</p>
-                    </div>
-                    <div class="academy-item">
-                        <i class="fa-solid fa-vault" style="color:var(--brand-red); margin-bottom:10px;"></i>
-                        <h4>Безбедно Чување</h4>
-                        <p style="font-size:0.8rem; opacity:0.6;">Сè за ладните и топлите паричници.</p>
-                    </div>
-                    <div class="academy-item">
-                        <i class="fa-solid fa-chart-pie" style="color:var(--brand-red); margin-bottom:10px;"></i>
-                        <h4>Инвестициски Стратегии</h4>
-                        <p style="font-size:0.8rem; opacity:0.6;">Како да изградите долгорочно портфолио.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Тука оди остатокот од Dashboard-от што го направивме претходно -->
     </div>
 
-    <footer>
-        <div class="footer-logo">CRYPTOOL</div>
-        <p style="font-weight: 700; margin-bottom: 10px;"><i class="fa-solid fa-envelope"></i> info@cryptool.pro</p>
-        <div class="footer-powered">
-            CRYPTOOL TEAM • POWERED BY <a href="https://kapital.mk" style="color:var(--brand-red); text-decoration:none;">KAPITAL MEDIA GROUP</a>
-        </div>
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid #eee; margin-top: 50px;">
+        <div style="font-weight: 800; color: var(--brand-red);">CRYPTOOL</div>
+        <p style="font-size: 0.8rem; margin-top: 10px;">info@cryptool.pro</p>
     </footer>
 </div>
 
 <script>
-    function validate() {
-        const p = document.getElementById('passCode').value;
-        if(p === "cryptool2026") {
+    // Crypto Rain Logic
+    const rain = document.getElementById('rain');
+    function createCoin() {
+        const coin = document.createElement('i');
+        coin.className = 'fa-brands fa-bitcoin coin-float';
+        coin.style.left = Math.random() * 100 + "vw";
+        coin.style.animationDuration = (Math.random() * 5 + 7) + "s";
+        rain.appendChild(coin);
+        setTimeout(() => coin.remove(), 10000);
+    }
+    setInterval(createCoin, 700);
+
+    // Unlock Logic
+    function unlock() {
+        const pass = document.getElementById('passCode').value;
+        if(pass === "cryptool2026") {
+            // Целосно отстранување на екранот за лозинка
             document.getElementById('auth-screen').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-            window.scrollTo(0, 0);
+            // Прикажување на главната апликација
+            const app = document.getElementById('main-app');
+            app.style.display = 'block';
+            app.style.visibility = 'visible';
+            // Овозможување скролање
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
         } else {
-            document.getElementById('err').style.display = 'block';
+            document.getElementById('errorMsg').style.display = 'block';
         }
     }
 
-    // Овозможување Enter за лозинка
-    document.getElementById('passCode').addEventListener("keyup", function(event) {
-        if (event.key === "Enter") validate();
+    // Enter Key
+    document.getElementById('passCode').addEventListener("keyup", function(e) {
+        if (e.key === "Enter") unlock();
     });
 </script>
 
