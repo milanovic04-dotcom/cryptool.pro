@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptool.pro | Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tech-blue: #e3f2fd; 
+            --money-green: #e8f5e9; 
+            --bitcoin-gold: #fff9c4; 
+            --accent-blue: #2196f3;
+            --text-dark: #2c3e50;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--tech-blue) 0%, var(--money-green) 50%, var(--bitcoin-gold) 100%);
+            overflow: hidden;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            border-color: var(--accent-blue);
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 3.5rem 2rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            max-width: 550px;
+            width: 90%;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .logo-text { color: var(--accent-blue); font-weight: 700; }
+        .highlight { color: #b8860b; }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 2.5rem;
+            min-height: 3.2em;
+        }
+
+        .login-box {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+
+        input[type="password"] {
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.1);
+            width: 60%;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 14px 25px;
+            border-radius: 12px;
+            border: none;
+            background: var(--accent-blue);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-left: 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .error { color: #d32f2f; font-size: 0.9rem; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('mk')">MK</button>
+    <button class="lang-btn" onclick="setLang('sr')">SR</button>
+</div>
+
+<div class="container" id="main-content">
+    <h1><span class="logo-text">Cryp</span>tool<span class="highlight">.pro</span></h1>
+    <p id="desc">Your destination for smart investments and blockchain technology. We are building something great.</p>
+    
+    <div class="login-box" id="login-section">
+        <small id="admin-label">Admin Access:</small><br><br>
+        <input type="password" id="passInput" placeholder="Enter password...">
+        <button id="btn-login" onclick="checkPassword()">Preview</button>
+        <div id="errorMsg" class="error">Incorrect password!</div>
+    </div>
+</div>
+
+<script>
+    const translations = {
+        en: {
+            desc: "Your destination for smart investments and blockchain technology. We are building something great.",
+            admin: "Admin Access:",
+            placeholder: "Enter password...",
+            btn: "Preview",
+            error: "Incorrect password!",
+            welcome: "Welcome back!",
+            previewText: "Successfully logged in. The preview of the site under construction will appear here."
+        },
+        mk: {
+            desc: "Вашата дестинација за паметни инвестиции и блокчејн технологија. Градиме нешто големо.",
+            admin: "Администраторски пристап:",
+            placeholder: "Внесете лозинка...",
+            btn: "Преглед",
+            error: "Погрешна лозинка!",
+            welcome: "Добредојдовте назад!",
+            previewText: "Успешно се најавивте. Овде ќе се појави прегледот на сајтот во изработка."
+        },
+        sr: {
+            desc: "Vaša destinacija za pametne investicije i blokčejn tehnologiju. Gradimo nešto veliko.",
+            admin: "Administratorski pristup:",
+            placeholder: "Unesite lozinku...",
+            btn: "Pregled",
+            error: "Pogrešna lozinka!",
+            welcome: "Dobrodošli nazad!",
+            previewText: "Uspešno ste se prijavili. Ovde će se pojaviti pregled sajta u izradi."
+        }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+        currentLang = lang;
+        document.getElementById('desc').innerText = translations[lang].desc;
+        document.getElementById('admin-label').innerText = translations[lang].admin;
+        document.getElementById('passInput').placeholder = translations[lang].placeholder;
+        document.getElementById('btn-login').innerText = translations[lang].btn;
+        document.getElementById('errorMsg').innerText = translations[lang].error;
+        
+        // Update active button state
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.innerText.toLowerCase() === lang) btn.classList.add('active');
+        });
+    }
+
+    function checkPassword() {
+        const pass = document.getElementById('passInput').value;
+        const secretPass = "cryptool2026"; 
+
+        if (pass === secretPass) {
+            document.getElementById('main-content').innerHTML = `
+                <h1 class="logo-text">${translations[currentLang].welcome}</h1>
+                <p>${translations[currentLang].previewText}</p>
+                <div style="background: white; padding: 20px; border-radius: 15px; text-align: left; font-size: 0.9rem; opacity: 0.7;">
+                    • Dashboard UI ... Pending<br>
+                    • API Connection ... Active<br>
+                    • Wallet Integration ... Testing
+                </div>
+                <button onclick="location.reload()" style="margin-top: 25px; background: #555;">Logout</button>
+            `;
+        } else {
+            document.getElementById('errorMsg').style.display = 'block';
+        }
+    }
+
+    document.getElementById('passInput').addEventListener("keyup", function(e) {
+        if (e.key === "Enter") checkPassword();
+    });
+</script>
+
+</body>
+</html>
