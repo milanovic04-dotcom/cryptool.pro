@@ -3,316 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRYPTOOL | Powered by Kapital Media Group</title>
+    <title>CRYPTOOL | The Balkan Crypto Authority</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --brand-red: #d32f2f;
-            --bg-light: #f8fafc;
-            --text-dark: #1a202c;
-            --card-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            --neon-blue: #00d2ff;
+            --deep-blue: #0a192f;
+            --gold: #ffc107;
+            --accent-red: #d32f2f;
+            --text-silver: #ccd6f6;
+            --glass-bg: rgba(10, 25, 47, 0.7);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        html, body { 
-            height: 100%; 
-            overflow: hidden !important; 
-            background: var(--bg-light); 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--deep-blue);
+            color: white;
+            overflow: hidden;
         }
 
-        /* --- 1. COMING SOON OVERLAY --- */
-        #auth-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(135deg, #f0f7ff, #f2faf3, #fffdf2);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9999999; visibility: visible;
+        /* --- АНИМИРАНА ПОЗАДИНА --- */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
-        .crypto-rain { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
-        .coin-float { position: absolute; opacity: 0.15; animation: floatUp 10s infinite linear; font-size: 2.5rem; color: #1a202c; }
+        /* --- ЛЕБДЕЧКИ ЛОГОА (CRYPTO RAIN) --- */
+        .crypto-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .coin {
+            position: absolute;
+            opacity: 0.2;
+            animation: floatUp 12s infinite linear;
+            font-size: 1.8rem;
+            color: var(--neon-blue);
+        }
+
         @keyframes floatUp {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            15% { opacity: 0.2; }
-            100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+            10% { opacity: 0.2; }
+            90% { opacity: 0.2; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- ГЛАВНА КАРТИЧКА --- */
+        main {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .auth-card {
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(25px);
-            padding: 4rem 2rem; border-radius: 40px; text-align: center;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.15); border: 1px solid white;
-            width: 90%; max-width: 650px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            padding: 3rem 2rem;
+            border-radius: 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.1);
         }
 
-        /* Language Switcher UI */
-        .lang-switch { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; }
-        .lang-btn {
-            background: white; border: 1px solid #ddd; padding: 6px 12px;
-            border-radius: 10px; cursor: pointer; font-size: 11px; font-weight: 800;
-            color: #64748b; transition: 0.3s;
-        }
-        .lang-btn.active { background: var(--brand-red); color: white; border-color: var(--brand-red); }
-
-        .cs-badge {
-            background: var(--brand-red); color: white; padding: 8px 25px;
-            border-radius: 50px; font-weight: 900; letter-spacing: 4px;
-            font-size: 1.1rem; margin-bottom: 20px; display: inline-block;
+        /* ЛОГО ДЕЛ */
+        .brand-header {
+            margin-bottom: 2rem;
         }
 
-        /* --- 2. MAIN APP CONTENT --- */
-        #main-app { display: none; opacity: 0; transition: opacity 0.6s ease-in; height: 100vh; overflow-y: auto; padding-top: 150px; }
-
-        nav {
-            position: fixed; top: 0; width: 100%; background: white; padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #eee; z-index: 1000;
+        .logo-main {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
-        .ticker-bar {
-            position: fixed; top: 72px; width: 100%; background: #111; color: white;
-            padding: 12px 0; font-size: 0.85rem; font-weight: 700; z-index: 999; overflow: hidden;
+        .logo-main i {
+            color: var(--accent-red);
+            filter: drop-shadow(0 0 10px rgba(211, 47, 47, 0.5));
         }
-        .ticker-content { display: flex; gap: 50px; animation: tickerScroll 45s linear infinite; width: max-content; }
-        @keyframes tickerScroll { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .powered-by {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-silver);
+            margin-top: 5px;
+            opacity: 0.7;
+        }
 
-        .section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; border-left: 6px solid var(--brand-red); padding-left: 20px; }
+        /* COMING SOON ТЕКСТ */
+        .status-badge {
+            display: inline-block;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        }
 
-        /* Живописни картички со слики */
-        .featured-box { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; margin-bottom: 50px; }
-        .main-card { background: white; border-radius: 30px; overflow: hidden; box-shadow: var(--card-shadow); text-decoration: none; color: inherit; display: block; }
-        .card-img { height: 350px; background-size: cover; background-position: center; }
-        .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 50px; }
-        .small-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow); }
-        .small-img { height: 180px; background-size: cover; background-position: center; }
+        .main-message {
+            font-size: 1.4rem;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 2.5rem;
+            color: var(--text-silver);
+        }
 
-        .academy-box { background: #111; color: white; padding: 80px 20px; border-radius: 40px; margin-top: 50px; text-align: center; }
-        .video-item { background: #222; aspect-ratio: 16/9; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px solid #333; margin-bottom: 15px; }
+        .main-message b {
+            color: white;
+            font-weight: 800;
+            border-bottom: 2px solid var(--gold);
+        }
 
-        .btn-red { background: var(--brand-red); color: white; border: none; padding: 18px 40px; border-radius: 15px; font-weight: 800; cursor: pointer; width: 100%; }
-        input { padding: 18px; border-radius: 15px; border: 1px solid #ddd; width: 100%; text-align: center; margin-bottom: 20px; font-size: 1rem; }
+        /* ФОРМА ЗА ПРИСТАП */
+        .access-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        input[type="password"] {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 16px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="password"]:focus {
+            border-color: var(--neon-blue);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .enter-btn {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .enter-btn:hover {
+            background: #b71c1c;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(211, 47, 47, 0.4);
+        }
+
+        /* ЛИНКОВИ ЗА ЈАЗИК */
+        .lang-switcher {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .lang-switcher a {
+            color: var(--text-silver);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 800;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .lang-switcher a:hover, .lang-switcher a.active {
+            opacity: 1;
+            color: var(--neon-blue);
+        }
+
+        /* ФУТЕР */
+        footer {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 15px;
+        }
+
+        .social-icons a {
+            color: var(--text-silver);
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--neon-blue);
+            transform: translateY(-3px);
+        }
     </style>
 </head>
 <body>
 
-<!-- 1. COMING SOON OVERLAY -->
-<div id="auth-overlay">
-    <div class="crypto-rain" id="rain"></div>
-    <div class="auth-card">
-        <div class="lang-switch">
-            <button class="lang-btn active" onclick="changeLang('en')">EN</button>
-            <button class="lang-btn" onclick="changeLang('mk')">MK</button>
-            <button class="lang-btn" onclick="changeLang('sr')">SR</button>
-            <button class="lang-btn" onclick="changeLang('sq')">SQ</button>
+    <canvas id="canvas-bg"></canvas>
+    <div class="crypto-rain" id="coin-container"></div>
+
+    <main>
+        <div class="auth-card">
+            <div class="lang-switcher">
+                <a href="#" class="active">ENGLISH</a>
+                <a href="#">МАКЕДОНСКИ</a>
+                <a href="#">SRPSKI</a>
+                <a href="#">SHQIP</a>
+            </div>
+
+            <div class="brand-header">
+                <div class="status-badge">COMING SOON</div>
+                <div class="logo-main">
+                    <i class="fa-solid fa-screwdriver-wrench"></i> CRYPTOOL
+                </div>
+                <div class="powered-by">Powered by Kapital Media Group</div>
+            </div>
+
+            <p class="main-message">
+                The only informant and educator in the Balkans for blockchain and crypto. <br>
+                <b>WE ARE BUILDING THE FUTURE.</b>
+            </p>
+
+            <form class="access-container" onsubmit="return validateAccess(event)">
+                <input type="password" id="passCode" placeholder="Enter preview code">
+                <button type="submit" class="enter-btn">Enter Preview</button>
+            </form>
         </div>
-        <div class="cs-badge" id="cs-label">COMING SOON</div>
-        <h1 style="color:var(--brand-red); font-size: 3rem; font-weight: 800; margin-bottom: 10px;">
-            <i class="fa-solid fa-screwdriver-wrench"></i> CRYPTOOL
-        </h1>
-        <p style="font-size: 0.75rem; font-weight: 800; letter-spacing: 3px; color: #64748b; margin-bottom: 30px;">POWERED BY KAPITAL MEDIA GROUP</p>
-        
-        <p id="punchline" style="color: var(--brand-red); font-weight: 800; letter-spacing: 1px; margin-bottom: 35px; font-size: 1.1rem;">
-            WE ARE BUILDING THE FUTURE.
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-discord"></i></a>
+        </div>
+        <p style="font-size: 0.7rem; color: var(--text-silver); letter-spacing: 1px;">
+            © 2026 CRYPTOOL TEAM | <a href="https://kapital.mk" style="color: inherit; text-decoration: none;">KAPITAL MEDIA GROUP</a>
         </p>
-
-        <div style="max-width: 350px; margin: 0 auto; width: 100%;">
-            <input type="password" id="passInput" placeholder="Enter access code">
-            <button class="btn-red" onclick="unlockSite()" id="btn-text">ENTER PREVIEW</button>
-            <p id="errorMsg" style="color: red; margin-top: 15px; font-weight: 800; display: none;">ACCESS DENIED!</p>
-        </div>
-    </div>
-</div>
-
-<!-- 2. MAIN APP CONTENT -->
-<div id="main-app">
-    <nav>
-        <div style="font-weight: 800; font-size: 1.6rem; color: var(--brand-red);"><i class="fa-solid fa-screwdriver-wrench"></i> CRYPTOOL</div>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <div class="lang-switch" style="margin-bottom: 0;">
-                <button class="lang-btn active" onclick="changeLang('en')">EN</button>
-                <button class="lang-btn" onclick="changeLang('mk')">MK</button>
-                <button class="lang-btn" onclick="changeLang('sr')">SR</button>
-                <button class="lang-btn" onclick="changeLang('sq')">SQ</button>
-            </div>
-            <a href="https://kapital.mk" target="_blank" style="color: var(--brand-red); text-decoration: none; font-weight: 800; font-size: 0.7rem;">KAPITAL.MK</a>
-        </div>
-    </nav>
-
-    <div class="ticker-bar">
-        <div class="ticker-content" id="tickerItems">
-            <!-- 20 Валути -->
-            <span>BTC: <b style="color:#4ade80">$64,812</b></span>
-            <span>ETH: <b style="color:#4ade80">$3,490</b></span>
-            <span>SOL: <b style="color:#f87171">$142.50</b></span>
-            <span>BNB: <b style="color:#4ade80">$605.20</b></span>
-            <span>SUI: <b style="color:#4ade80">$1.24</b></span>
-            <span>ONDO: <b style="color:#4ade80">$0.82</b></span>
-            <span>XRP: <b style="color:#f87171">$0.51</b></span>
-            <span>ADA: <b style="color:#4ade80">$0.45</b></span>
-            <span>NEAR: <b style="color:#4ade80">$6.90</b></span>
-            <span>FET: <b style="color:#4ade80">$2.18</b></span>
-            <span>MATIC: <b style="color:#f87171">$0.72</b></span>
-            <span>DOT: <b style="color:#f87171">$7.15</b></span>
-            <span>TRX: <b style="color:#4ade80">$0.12</b></span>
-            <span>LINK: <b style="color:#4ade80">$14.50</b></span>
-            <span>PEPE: <b style="color:#4ade80">0.000008</b></span>
-            <span>ARB: <b style="color:#f87171">$1.05</b></span>
-            <span>FIL: <b style="color:#f87171">$5.95</b></span>
-            <span>LTC: <b style="color:#4ade80">$82.10</b></span>
-            <span>APT: <b style="color:#4ade80">$9.12</b></span>
-            <span>RNDR: <b style="color:#4ade80">$8.45</b></span>
-        </div>
-    </div>
-
-    <div class="container">
-        <h2 class="section-title" id="sec-bomb">BOMBASTIC NEWS</h2>
-        <div class="featured-box">
-            <div class="main-card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1200');"></div>
-                <div style="padding: 25px;">
-                    <h3 id="news-main">Ondo Finance: The Future of RWA is Here</h3>
-                    <p style="opacity: 0.7; margin-top: 10px;" id="news-sub">Institutional assets are moving to the blockchain.</p>
-                </div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div style="background: white; padding: 25px; border-radius: 20px; border: 1px solid #eee;">
-                    <small style="color:var(--brand-red); font-weight:900;" id="tag-blog">BLOG</small>
-                    <h4 id="blog-title">Why DePIN is the next big trend?</h4>
-                </div>
-                <div style="background: white; padding: 25px; border-radius: 20px; border: 1px solid #eee;">
-                    <small style="color:var(--brand-red); font-weight:900;" id="tag-int">INTERVIEW</small>
-                    <h4 id="int-title">Exclusive with BlockDAG CEO</h4>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title" id="sec-latest">LATEST UPDATES</h2>
-        <div class="news-grid">
-            <div class="small-card">
-                <div class="small-img" style="background-image: url('https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=600');"></div>
-                <div style="padding: 20px;"><h4>BTC Breaks $65k</h4></div>
-            </div>
-            <div class="small-card">
-                <div class="small-img" style="background-image: url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=600');"></div>
-                <div style="padding: 20px;"><h4>SUI Network Growth</h4></div>
-            </div>
-            <div class="small-card">
-                <div class="small-img" style="background-image: url('https://images.unsplash.com/photo-1642104704074-907c0698bae9?q=80&w=600');"></div>
-                <div style="padding: 20px;"><h4>RWA Ecosystem</h4></div>
-            </div>
-        </div>
-
-        <div class="academy-box">
-            <h2 id="sec-academy" style="margin-bottom: 40px; font-weight: 800;">CRYPTOOL ACADEMY</h2>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
-                <div>
-                    <div class="video-item"><i class="fa-solid fa-play fa-3x" style="color:var(--brand-red);"></i></div>
-                    <p id="vid-1" style="font-weight: 700;">Blockchain Basics</p>
-                </div>
-                <div>
-                    <div class="video-item"><i class="fa-solid fa-play fa-3x" style="color:var(--brand-red);"></i></div>
-                    <p id="vid-2" style="font-weight: 700;">Smart Contracts</p>
-                </div>
-                <div>
-                    <div class="video-item"><i class="fa-solid fa-play fa-3x" style="color:var(--brand-red);"></i></div>
-                    <p id="vid-3" style="font-weight: 700;">Security</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer style="padding: 60px 20px; text-align: center; border-top: 1px solid #eee;">
-        <div style="font-weight: 800; font-size: 1.8rem; color: var(--brand-red);">CRYPTOOL</div>
-        <p style="margin-top: 10px; opacity: 0.6;">info@cryptool.pro</p>
     </footer>
-</div>
 
-<script>
-    const langData = {
-        en: {
-            cs: "COMING SOON", punch: "WE ARE BUILDING THE FUTURE.", pass: "Enter access code", btn: "ENTER PREVIEW",
-            err: "ACCESS DENIED!", bomb: "BOMBASTIC NEWS", latest: "LATEST UPDATES", blog: "BLOG", int: "INTERVIEW",
-            academy: "CRYPTOOL ACADEMY", mainT: "Ondo Finance: The Future of RWA is Here",
-            subT: "Institutional assets are moving to the blockchain.", blogT: "Why DePIN is the next big trend?",
-            intT: "Exclusive with BlockDAG CEO", v1: "Blockchain Basics", v2: "Smart Contracts", v3: "Security"
-        },
-        mk: {
-            cs: "НАСКОРО", punch: "НИЕ ЈА ГРАДИМЕ ИДНИНАТА.", pass: "Внесете код за пристап", btn: "ВЛЕЗИ ВО ПРЕГЛЕД",
-            err: "ПРИСТАПОТ Е ОДБИЕН!", bomb: "БОМБАСТИЧНИ ВЕСТИ", latest: "ТЕКОВНИ ВЕСТИ", blog: "БЛОГ", int: "ИНТЕРВЈУ",
-            academy: "КРИПТООЛ АКАДЕМИЈА", mainT: "Ondo Finance: Иднината на RWA е тука",
-            subT: "Институционалните средства се селат на блокчејн.", blogT: "Зошто DePIN е следниот голем тренд?",
-            intT: "Ексклузивно со CEO на BlockDAG", v1: "Основи на Блокчејн", v2: "Паметни Договори", v3: "Безбедност"
-        },
-        sr: {
-            cs: "USKORO", punch: "MI GRADIMO BUDUĆNOST.", pass: "Unesite kod za pristup", btn: "ULAZ U PREGLED",
-            err: "PRISTUP ODBIJEN!", bomb: "BOMBASTIČNE VESTI", latest: "NAJNOVIJE VESTI", blog: "BLOG", int: "INTERVJU",
-            academy: "CRYPTOOL AKADEMIJA", mainT: "Ondo Finance: Budućnost RWA je ovde",
-            subT: "Institucionalna sredstva se sele na blokčejn.", blogT: "Zašto je DePIN sledeći veliki trend?",
-            intT: "Ekskluzivno sa CEO-om BlockDAG-a", v1: "Osnove Blokčejna", v2: "Pametni Ugovori", v3: "Bezbednost"
-        },
-        sq: {
-            cs: "SË SHPEJTI", punch: "NE PO NDËRTOJMË TË ARDHMEN.", pass: "Shkruani kodin e hyrjes", btn: "HYR NË PAMJE",
-            err: "AKSESI U REFUZUA!", bomb: "LAJME BOMBASTIKE", latest: "LAJMET E FUNDIT", blog: "BLOG", int: "INTERVISTË",
-            academy: "AKADEMIA CRYPTOOL", mainT: "Ondo Finance: E ardhmja e RWA është këtu",
-            subT: "Asetet institucionale po kalojnë në blockchain.", blogT: "Pse DePIN është trendi i ardhshëm?",
-            intT: "Ekskluzive me CEO-n e BlockDAG", v1: "Bazat e Blockchain", v2: "Kontratat Inteligjente", v3: "Siguria"
+    <script>
+        /* --- 1. КРИПТО ДОЖД (BTC, ETH, SOL, ADA, TRX, BNB, SUI) --- */
+        const coins = [
+            'fa-brands fa-bitcoin', 
+            'fa-brands fa-ethereum', 
+            'fa-solid fa-litecoin-sign',
+            'fa-solid fa-coins' // Placeholder за други
+        ];
+        
+        function createCoin() {
+            const container = document.getElementById('coin-container');
+            const coin = document.createElement('i');
+            const randomIcon = coins[Math.floor(Math.random() * coins.length)];
+            
+            coin.className = `${randomIcon} coin`;
+            coin.style.left = Math.random() * 100 + "vw";
+            coin.style.animationDuration = (Math.random() * 5 + 7) + "s";
+            coin.style.fontSize = (Math.random() * 1 + 1) + "rem";
+            
+            container.appendChild(coin);
+            setTimeout(() => coin.remove(), 12000);
         }
-    };
+        setInterval(createCoin, 400);
 
-    function changeLang(lang) {
-        const d = langData[lang];
-        document.getElementById('cs-label').innerText = d.cs;
-        document.getElementById('punchline').innerText = d.punch;
-        document.getElementById('passInput').placeholder = d.pass;
-        document.getElementById('btn-text').innerText = d.btn;
-        document.getElementById('errorMsg').innerText = d.err;
-        document.getElementById('sec-bomb').innerText = d.bomb;
-        document.getElementById('sec-latest').innerText = d.latest;
-        document.getElementById('tag-blog').innerText = d.blog;
-        document.getElementById('tag-int').innerText = d.int;
-        document.getElementById('sec-academy').innerText = d.academy;
-        document.getElementById('news-main').innerText = d.mainT;
-        document.getElementById('news-sub').innerText = d.subT;
-        document.getElementById('blog-title').innerText = d.blogT;
-        document.getElementById('int-title').innerText = d.intT;
-        document.getElementById('vid-1').innerText = d.v1;
-        document.getElementById('vid-2').innerText = d.v2;
-        document.getElementById('vid-3').innerText = d.v3;
+        /* --- 2. CANVAS BLOCKCHAIN NODES BACKGROUND --- */
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.innerText.toLowerCase() === lang) btn.classList.add('active');
-        });
-    }
-
-    // Rain logic
-    const rain = document.getElementById('rain');
-    function createCoin() {
-        const coin = document.createElement('i');
-        coin.className = 'fa-brands fa-bitcoin coin-float';
-        coin.style.left = Math.random() * 95 + "vw";
-        coin.style.animationDuration = (Math.random() * 5 + 7) + "s";
-        rain.appendChild(coin);
-        setTimeout(() => coin.remove(), 10000);
-    }
-    setInterval(createCoin, 600);
-
-    // Unlock logic
-    function unlockSite() {
-        if (document.getElementById('passInput').value === "cryptool2026") {
-            document.getElementById('auth-overlay').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-            setTimeout(() => { document.getElementById('main-app').style.opacity = "1"; }, 50);
-            document.body.style.setProperty('overflow', 'auto', 'important');
-            document.documentElement.style.setProperty('overflow', 'auto', 'important');
-        } else {
-            document.getElementById('errorMsg').style.display = 'block';
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-    }
-</script>
+        window.addEventListener('resize', resize);
+        resize();
 
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#00d2ff';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 210, 255, ${1 - dist / 150})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        /* --- 3. ВАЛИДАЦИЈА НА ЛОЗИНКА --- */
+        function validateAccess(event) {
+            event.preventDefault();
+            const pass = document.getElementById('passCode').value;
+            if (pass === "cryptool2026") {
+                alert("Access Granted. Redirecting to admin preview...");
+                // Тука ќе се додаде линк до реалната страна
+            } else {
+                alert("Incorrect code. Please try again.");
+            }
+            return false;
+        }
+    </script>
 </body>
 </html>
