@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,49 +30,45 @@
         @keyframes floatUp { 0% { transform: translateY(110vh) rotate(0deg); opacity: 0; } 15% { opacity: 0.3; } 100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; } }
 
         .auth-card {
-            background: rgba(10, 25, 47, 0.8); backdrop-filter: blur(15px);
-            padding: 4rem 2rem; border-radius: 40px; text-align: center;
-            border: 1px solid rgba(0, 210, 255, 0.2); width: 90%; max-width: 650px; position: relative;
+            background: rgba(10, 25, 47, 0.85); backdrop-filter: blur(15px);
+            padding: 3rem 2rem; border-radius: 40px; text-align: center;
+            border: 1px solid rgba(0, 210, 255, 0.2); width: 90%; max-width: 700px;
         }
 
-        /* --- 2. INTERNAL CONTENT (HIDDEN) --- */
+        .lang-switch { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; }
+        .l-btn { background: white; border: 1px solid #ddd; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 11px; font-weight: 800; color: #64748b; }
+        .l-btn.active { background: var(--brand-red); color: white; border-color: var(--brand-red); }
+
+        /* --- 2. INTERNAL PORTAL (HIDDEN) --- */
         #main-app { display: none; opacity: 0; background: var(--bg-light); transition: opacity 0.5s ease; padding-top: 150px; overflow-y: auto; height: 100vh; color: #1a202c; }
 
         nav { position: fixed; top: 0; width: 100%; background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; z-index: 1000; }
-        
-        /* Ticker Style */
         .ticker-bar { position: fixed; top: 75px; width: 100%; background: #111; color: white; padding: 12px 0; font-size: 0.85rem; font-weight: 700; z-index: 999; overflow: hidden; }
         .ticker-content { display: flex; gap: 60px; animation: tickerScroll 40s linear infinite; width: max-content; }
         @keyframes tickerScroll { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
 
         .container { max-width: 1300px; margin: 0 auto; padding: 20px; }
-        
-        /* Grid Layout */
-        .portal-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 30px; margin-bottom: 60px; }
-
+        .portal-grid { display: grid; grid-template-columns: 320px 1fr 300px; gap: 30px; margin-bottom: 60px; }
         .section-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 25px; border-left: 6px solid var(--brand-red); padding-left: 20px; text-transform: uppercase; }
 
-        /* News & Cards */
-        .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: var(--card-shadow); transition: 0.3s; margin-bottom: 25px; text-decoration: none; color: inherit; display: block; }
-        .card:hover { transform: translateY(-5px); }
+        /* Cards & Sidebar */
+        .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: var(--card-shadow); transition: 0.3s; margin-bottom: 25px; display: block; text-decoration: none; color: inherit; }
         .card-img { height: 280px; background-size: cover; background-position: center; position: relative; }
-        .badge-hot { position: absolute; top: 20px; left: 20px; background: var(--brand-red); color: white; padding: 6px 15px; border-radius: 8px; font-weight: 900; }
-        .card-body { padding: 25px; }
-
-        /* Library & Sidebar */
         .sidebar-item { background: white; padding: 20px; border-radius: 20px; box-shadow: var(--card-shadow); margin-bottom: 20px; border: 1px solid #f0f0f0; }
 
-        /* Video Academy */
+        /* Quiz UI */
+        .quiz-box { background: #f1f5f9; padding: 20px; border-radius: 20px; border: 1px solid #cbd5e1; }
+        .quiz-opt { display: block; width: 100%; padding: 12px; margin: 8px 0; background: white; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; text-align: left; font-weight: 600; }
+        .quiz-opt:hover { border-color: var(--brand-red); background: #fff5f5; }
+
+        /* Academy */
         .academy-section { background: #0a192f; color: white; padding: 80px 20px; border-radius: 50px 50px 0 0; margin-top: 60px; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .video-thumb { aspect-ratio: 16/9; background: #172a45; border-radius: 25px; display: flex; align-items: center; justify-content: center; border: 2px solid transparent; transition: 0.3s; position: relative; overflow: hidden; }
-        .video-thumb:hover { border-color: var(--neon-blue); }
-        .video-thumb i { font-size: 4rem; color: var(--brand-red); z-index: 2; }
+        .video-thumb { aspect-ratio: 16/9; background: #172a45; border-radius: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+        .video-thumb i { font-size: 4rem; color: var(--brand-red); }
 
-        /* Inputs & Buttons */
-        .btn-red { background: var(--brand-red); color: white; border: none; padding: 18px 40px; border-radius: 15px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem; }
-        input { padding: 18px; border-radius: 15px; border: 1px solid #ddd; width: 100%; text-align: center; margin-bottom: 20px; outline: none; font-size: 1.1rem; }
-        .kapital-text { font-weight: 800; color: #64748b; letter-spacing: 1px; }
+        .btn-red { background: var(--brand-red); color: white; border: none; padding: 18px 40px; border-radius: 15px; font-weight: 800; cursor: pointer; width: 100%; max-width: 300px; }
+        input { padding: 18px; border-radius: 15px; border: 1px solid #ddd; width: 100%; max-width: 300px; text-align: center; margin-bottom: 15px; outline: none; font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -80,167 +76,143 @@
 <div id="auth-screen">
     <div class="crypto-rain" id="rain"></div>
     <div class="auth-card">
-        <div style="background: rgba(0, 210, 255, 0.1); border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 20px; border-radius: 50px; display: inline-block; font-weight: 900; letter-spacing: 5px; margin-bottom: 20px;">COMING SOON</div>
-        <h1 style="color:white; font-size: 3.5rem; font-weight: 800; margin-bottom: 10px;">
-            <i class="fa-solid fa-screwdriver-wrench" style="color: var(--brand-red);"></i> CRYPTOOL
-        </h1>
-        <p class="kapital-text" style="margin-bottom: 30px;">POWERED BY KAPITAL MEDIA GROUP</p>
-        
-        <h2 style="font-size: 1.4rem; line-height: 1.5; color: #ccd6f6; font-weight: 600; margin-bottom: 10px;">
-            The only informant and educator in the Balkans for blockchain and crypto.
-        </h2>
-        <p style="color: var(--brand-red); font-weight: 800; letter-spacing: 2px; margin-bottom: 40px; font-size: 1.2rem;">WE ARE BUILDING THE FUTURE.</p>
-
-        <div style="max-width: 380px; margin: 0 auto; width: 100%;">
-            <input type="password" id="passInput" placeholder="Enter access code">
-            <button class="btn-red" onclick="unlockSite()">ENTER PREVIEW</button>
-            <p id="errorMsg" style="color: #ff4d4d; margin-top: 15px; font-weight: 800; display: none;">ACCESS DENIED!</p>
+        <div class="lang-switch">
+            <button class="l-btn active" onclick="changeLang('mk')">MK</button>
+            <button class="l-btn" onclick="changeLang('sr')">SR</button>
+            <button class="l-btn" onclick="changeLang('sq')">SQ</button>
         </div>
+        <div style="color: var(--neon-blue); font-weight: 900; letter-spacing: 5px; margin-bottom: 15px;">COMING SOON</div>
+        <h1 style="color:white; font-size: 3.5rem; font-weight: 800; margin-bottom: 10px;">CRYPTOOL</h1>
+        <p style="font-weight: 800; color: #64748b; margin-bottom: 30px;">POWERED BY <a href="https://www.kapital.mk" target="_blank" style="color: var(--brand-red);">KAPITAL MEDIA GROUP</a></p>
+        <p id="cs-punch" style="font-size: 1.3rem; line-height: 1.5; color: #ccd6f6; margin-bottom: 10px;">The only informant and educator in the Balkans for blockchain and crypto.</p>
+        <p style="color: var(--brand-red); font-weight: 800; letter-spacing: 2px; margin-bottom: 40px;">WE ARE BUILDING THE FUTURE.</p>
+        <input type="password" id="passInput" placeholder="Лозинка за пристап">
+        <button class="btn-red" onclick="unlockSite()">ВЛЕЗИ</button>
+        <p style="margin-top: 40px; color: #ccd6f6; font-size: 0.9rem;">info@cryptool.pro</p>
     </div>
 </div>
 
 <div id="main-app">
     <nav>
         <div style="font-weight: 800; font-size: 1.8rem; color: var(--brand-red);"><i class="fa-solid fa-screwdriver-wrench"></i> CRYPTOOL</div>
-        <div style="font-weight: 800; font-size: 0.8rem;">PARTNER: <a href="https://kapital.mk" target="_blank" style="color: var(--brand-red); text-decoration: none;">KAPITAL.MK</a></div>
+        <div style="font-weight: 800; font-size: 0.8rem;">PARTNER: <a href="https://kapital.mk" target="_blank" style="color: var(--brand-red);">KAPITAL.MK</a></div>
     </nav>
 
     <div class="ticker-bar">
         <div class="ticker-content">
-            <span>BTC: <b style="color:#4ade80">$64,812</b></span><span>ETH: <b style="color:#4ade80">$3,492</b></span><span>SOL: <b style="color:#f87171">$142.40</b></span><span>ONDO: <b style="color:#4ade80">$0.82</b></span><span>SUI: <b style="color:#4ade80">$1.25</b></span><span>TRX: <b style="color:#4ade80">$0.12</b></span><span>ADA: <b style="color:#4ade80">$0.45</b></span><span>NEAR: <b style="color:#4ade80">$6.92</b></span><span>FET: <b style="color:#4ade80">$2.18</b></span><span>XRP: <b style="color:#f87171">$0.51</b></span>
-            <span>BNB: <b style="color:#4ade80">$605</b></span><span>AVAX: <b style="color:#4ade80">$35.10</b></span><span>DOT: <b style="color:#f87171">$7.12</b></span><span>MATIC: <b style="color:#f87171">$0.72</b></span><span>PEPE: <b style="color:#4ade80">0.000008</b></span><span>RENDER: <b style="color:#4ade80">$8.45</b></span><span>ARB: <b style="color:#f87171">$1.05</b></span><span>LTC: <b style="color:#4ade80">$82.40</b></span><span>LINK: <b style="color:#4ade80">$14.50</b></span><span>STX: <b style="color:#4ade80">$2.10</b></span>
+            <span>BTC: <b style="color:#4ade80">$64,812</b></span><span>ETH: <b style="color:#4ade80">$3,492</b></span><span>SOL: <b style="color:#f87171">$142.40</b></span><span>ONDO: <b style="color:#4ade80">$0.82</b></span><span>SUI: <b style="color:#4ade80">$1.25</b></span><span>ADA: <b style="color:#4ade80">$0.45</b></span><span>NEAR: <b style="color:#4ade80">$6.92</b></span><span>XRP: <b style="color:#f87171">$0.51</b></span><span>BNB: <b style="color:#4ade80">$605</b></span><span>TRX: <b style="color:#4ade80">$0.12</b></span>
+            <span>BTC: <b style="color:#4ade80">$64,812</b></span><span>ETH: <b style="color:#4ade80">$3,492</b></span><span>SOL: <b style="color:#f87171">$142.40</b></span><span>ONDO: <b style="color:#4ade80">$0.82</b></span><span>SUI: <b style="color:#4ade80">$1.25</b></span><span>ADA: <b style="color:#4ade80">$0.45</b></span><span>NEAR: <b style="color:#4ade80">$6.92</b></span><span>XRP: <b style="color:#f87171">$0.51</b></span><span>BNB: <b style="color:#4ade80">$605</b></span><span>TRX: <b style="color:#4ade80">$0.12</b></span>
         </div>
     </div>
 
     <div class="container">
         <div class="portal-grid">
-            
             <aside>
-                <h2 class="section-title">Library</h2>
-                <div class="sidebar-item">
-                    <h4 style="color: var(--brand-red);">10 Golden Rules</h4>
-                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 8px;">The ultimate guide for every crypto beginner on the Balkans.</p>
-                </div>
-                <div class="sidebar-item">
-                    <h4>ABC of Crypto</h4>
-                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 8px;">75 essential terms every investor must know in 2026.</p>
-                </div>
-                <div class="sidebar-item">
-                    <h4>RWA Manual</h4>
-                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 8px;">How to tokenize physical assets safely.</p>
+                <h2 class="section-title" id="lbl-lib">Библиотека</h2>
+                <div class="sidebar-item"><h4>10 Златни Правила</h4><p style="font-size: 0.8rem; opacity: 0.7;">Водич за преживување за почетници.</p></div>
+                <div class="sidebar-item"><h4>Крипто Речник</h4><p style="font-size: 0.8rem; opacity: 0.7;">75 клучни термини дешифрирани.</p></div>
+                
+                <h2 class="section-title" style="margin-top: 30px;">Квиз на знаење</h2>
+                <div class="quiz-box" id="quizBox">
+                    <p id="quizText" style="font-weight: 700; margin-bottom: 10px;">Изберете ниво за почеток:</p>
+                    <button class="quiz-opt" onclick="startQuiz(0)">Ниво 1: Почетник</button>
+                    <button class="quiz-opt" onclick="startQuiz(1)">Ниво 2: Рудар</button>
+                    <button class="quiz-opt" onclick="startQuiz(2)">Ниво 3: Кит</button>
                 </div>
             </aside>
 
             <main>
-                <h2 class="section-title">BOMBASTIC NEWS</h2>
+                <h2 class="section-title" id="lbl-bomb">Бомбастични вести</h2>
                 <div class="card">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1200');">
-                        <span class="badge-hot">BREAKING</span>
-                    </div>
-                    <div class="card-body">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 12px;">Ondo Finance: Institutional Revolution of RWA</h3>
-                        <p style="opacity: 0.8; line-height: 1.6;">Wall Street is moving to the blockchain. We analyze why Ondo and BlackRock are the winners of 2026 and what it means for your portfolio.</p>
-                    </div>
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1200');"></div>
+                    <div style="padding: 25px;"><h3>Ondo Finance: Институционална револуција на RWA</h3><p style="opacity: 0.8; margin-top: 10px;">Wall Street се сели на блокчејн. Анализа на партнерството со BlackRock.</p></div>
                 </div>
-
-                <h2 class="section-title" style="margin-top: 40px;">LATEST UPDATES</h2>
+                <h2 class="section-title" id="lbl-latest">Најнови вести</h2>
                 <div class="sidebar-item" style="display: flex; gap: 20px; align-items: center;">
-                    <div style="width: 100px; height: 70px; background: url('https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=200') center/cover; border-radius: 10px;"></div>
-                    <div>
-                        <h4 style="font-size: 0.95rem;">Bitcoin maintains support above $65,000 as institutional demand grows.</h4>
-                        <small style="color: var(--brand-red);">15 minutes ago</small>
-                    </div>
-                </div>
-                <div class="sidebar-item" style="display: flex; gap: 20px; align-items: center;">
-                    <div style="width: 100px; height: 70px; background: url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=200') center/cover; border-radius: 10px;"></div>
-                    <div>
-                        <h4 style="font-size: 0.95rem;">SUI Network hits record transaction volume in April.</h4>
-                        <small style="color: var(--brand-red);">1 hour ago</small>
-                    </div>
+                    <div style="width: 80px; height: 60px; background: url('https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=200') center/cover; border-radius: 10px;"></div>
+                    <div><h4>Биткоин ја одржува поддршката над $65,000.</h4><small style="color: var(--brand-red);">пред 15 минути</small></div>
                 </div>
             </main>
 
             <aside>
-                <h2 class="section-title">Blogs & Interviews</h2>
-                <div class="sidebar-item">
-                    <span style="font-size: 0.7rem; font-weight: 900; color: var(--brand-red);">BLOG</span>
-                    <h4 style="margin-top: 5px;">Why DePIN is the next big narrative for 2026.</h4>
-                    <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">Deep dive into decentralized physical infrastructure.</p>
-                </div>
-                <div class="sidebar-item">
-                    <span style="font-size: 0.7rem; font-weight: 900; color: var(--brand-red);">INTERVIEW</span>
-                    <h4 style="margin-top: 5px;">Exclusive: Future of tokenization with BlackRock leaders.</h4>
-                </div>
-                <div style="margin-top: 30px; border-radius: 25px; overflow: hidden; border: 1px solid #ddd;">
-                    <img src="https://images.unsplash.com/photo-1642104704074-907c0698bae9?q=80&w=400" style="width: 100%; display: block;">
-                    <div style="padding: 15px; text-align: center; font-size: 0.8rem; font-weight: 700;">PROMOTED: TANGEM WALLET</div>
-                </div>
+                <h2 class="section-title" id="lbl-blog">Блогови & Интервјуа</h2>
+                <div class="sidebar-item"><small style="font-weight: 900; color: var(--brand-red);">БЛОГ</small><h4>Зошто DePIN е следниот голем наратив.</h4></div>
+                <div class="sidebar-item"><small style="font-weight: 900; color: var(--brand-red);">ИНТЕРВЈУ</small><h4>Разговор со лидерите на Ondo Finance.</h4></div>
             </aside>
         </div>
-    </div>
 
-    <section class="academy-section">
-        <div class="container">
-            <h2 class="section-title" style="color: white; border-color: white; margin-bottom: 50px; font-size: 2rem;">CRYPTOOL VIDEO ACADEMY</h2>
+        <section class="academy-section">
+            <h2 class="section-title" style="color: white; border-color: white; margin-bottom: 50px;">КРИПТООЛ ВИДЕО АКАДЕМИЈА</h2>
             <div class="video-grid">
-                <div>
-                    <div class="video-thumb"><i class="fa-solid fa-circle-play"></i></div>
-                    <h4 style="text-align: center; margin-top: 15px;">Blockchain Basics for Everyone</h4>
-                </div>
-                <div>
-                    <div class="video-thumb"><i class="fa-solid fa-circle-play"></i></div>
-                    <h4 style="text-align: center; margin-top: 15px;">Security: Protecting your Seed Phrase</h4>
-                </div>
-                <div>
-                    <div class="video-thumb"><i class="fa-solid fa-circle-play"></i></div>
-                    <h4 style="text-align: center; margin-top: 15px;">Advanced RWA Strategies</h4>
-                </div>
+                <div class="video-thumb"><i class="fa-solid fa-circle-play"></i></div>
+                <div class="video-thumb"><i class="fa-solid fa-circle-play"></i></div>
+                <div class="video-thumb"><i class="fa-solid fa-circle-play"></i></div>
             </div>
-        </div>
-        <footer style="margin-top: 80px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px;">
-            <div style="font-weight: 800; font-size: 2rem; color: var(--brand-red);">CRYPTOOL</div>
-            <p style="opacity: 0.5; margin-top: 10px;">info@cryptool.pro</p>
-            <p style="font-size: 0.7rem; margin-top: 30px; letter-spacing: 2px;">CRYPTOOL TEAM | POWERED BY KAPITAL MEDIA GROUP</p>
-        </footer>
-    </section>
+            <footer style="margin-top: 80px; text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="font-weight: 800; font-size: 2rem; color: var(--brand-red);">CRYPTOOL</div>
+                <p style="opacity: 0.5; margin-top: 10px;">info@cryptool.pro</p>
+                <p style="font-size: 0.7rem; margin-top: 30px; letter-spacing: 2px;">CRYPTOOL TEAM | POWERED BY KAPITAL MEDIA GROUP</p>
+            </footer>
+        </section>
+    </div>
 </div>
 
 <script>
-    // 1. Crypto Rain Animation
-    const rainContainer = document.getElementById('rain');
-    const coins = ['fa-bitcoin', 'fa-ethereum', 'fa-litecoin-sign', 'fa-coins'];
+    // 1. Language Data
+    const langs = {
+        mk: { punch: "Единствен информатор и едукатор на Балканот за блокчејн и крипто.", lib: "Библиотека", bomb: "Бомбастични вести", latest: "Најнови вести", blog: "Блогови & Интервјуа" },
+        sr: { punch: "Jedini informator i edukator na Balkanu za blockchain i kripto.", lib: "Biblioteka", bomb: "Bombastične vesti", latest: "Najnovije vesti", blog: "Blogovi & Intervjui" },
+        sq: { punch: "I vetmi informator dhe edukator në Ballkan për blockchain dhe kripto.", lib: "Biblioteka", bomb: "Lajme Bombastike", latest: "Lajmet e fundit", blog: "Bloge & Intervista" }
+    };
+
+    function changeLang(l) {
+        document.getElementById('cs-punch').innerText = langs[l].punch;
+        document.getElementById('lbl-lib').innerText = langs[l].lib;
+        document.getElementById('lbl-bomb').innerText = langs[l].bomb;
+        document.getElementById('lbl-latest').innerText = langs[l].latest;
+        document.getElementById('lbl-blog').innerText = langs[l].blog;
+        document.querySelectorAll('.l-btn').forEach(b => { b.classList.remove('active'); if(b.innerText.toLowerCase() == l) b.classList.add('active'); });
+    }
+
+    // 2. Crypto Rain
+    const rain = document.getElementById('rain');
+    const coins = ['fa-bitcoin', 'fa-ethereum', 'fa-litecoin-sign'];
     function createCoin() {
         const coin = document.createElement('i');
-        const randomIcon = coins[Math.floor(Math.random() * coins.length)];
-        coin.className = `fa-brands ${randomIcon} coin-float`;
-        coin.style.left = Math.random() * 95 + "vw";
-        coin.style.animationDuration = (Math.random() * 5 + 7) + "s";
-        rainContainer.appendChild(coin);
+        coin.className = `fa-brands ${coins[Math.floor(Math.random()*3)]} coin-float`;
+        coin.style.left = Math.random()*95 + "vw";
+        coin.style.animationDuration = (Math.random()*5 + 7) + "s";
+        rain.appendChild(coin);
         setTimeout(() => coin.remove(), 10000);
     }
     setInterval(createCoin, 600);
 
-    // 2. Unlock Logic
+    // 3. Unlock Logic
     function unlockSite() {
-        const input = document.getElementById('passInput').value;
-        if (input === "cryptool2026") {
+        if(document.getElementById('passInput').value === "cryptool2026") {
             document.getElementById('auth-screen').style.display = 'none';
-            const app = document.getElementById('main-app');
-            app.style.display = 'block';
-            setTimeout(() => { app.style.opacity = "1"; }, 50);
+            document.getElementById('main-app').style.display = 'block';
+            setTimeout(() => document.getElementById('main-app').style.opacity = "1", 50);
             document.body.style.overflow = 'auto';
-            document.documentElement.style.overflow = 'auto';
-        } else {
-            document.getElementById('errorMsg').style.display = 'block';
-            document.getElementById('passInput').value = "";
-        }
+        } else { alert("Грешен код!"); }
     }
 
-    // Support Enter Key
-    document.getElementById('passInput').addEventListener("keypress", (e) => {
-        if (e.key === "Enter") unlockSite();
-    });
-</script>
+    // 4. Quiz Logic (Simplified for 10 per level)
+    const quizData = [
+        [{q: "Што значи HODL?", a: ["Тргување", "Долгорочно чување", "Продавање"], c: 1}],
+        [{q: "Што е Gas Fee?", a: ["Данок", "Провизија на мрежата", "Попуст"], c: 1}],
+        [{q: "Што е RWA?", a: ["Виртуелни пари", "Реална сопственост (имот, злато)", "Апликација"], c: 1}]
+    ];
 
+    function startQuiz(lvl) {
+        const data = quizData[lvl][0];
+        const box = document.getElementById('quizBox');
+        box.innerHTML = `<p style='font-weight:700;'>${data.q}</p>`;
+        data.a.forEach((opt, i) => {
+            box.innerHTML += `<button class="quiz-opt" onclick="alert('${i==data.c ? 'Точно!' : 'Грешно!'}')">${opt}</button>`;
+        });
+        box.innerHTML += `<button class="quiz-opt" style="background:#eee" onclick="location.reload()">Назад</button>`;
+    }
+</script>
 </body>
 </html>
